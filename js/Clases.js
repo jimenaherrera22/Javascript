@@ -76,3 +76,35 @@ console.log(alan);
 alan.SetName="Alan";
 
 console.log(alan.GetEdad);
+
+
+class Alumno extends Persona{
+    constructor(nombre, apellido, edad, rol, curso){
+        super(nombre, apellido, edad);
+        this.rol=rol;
+        this.curso=curso;
+    }
+
+    mostrarInformacion(){
+        console.log(`Hola mi nombre es ${this.name}, mi apellido es ${this.surName}, mi edad es ${this.age}, mi rol es ${this.rol} y estoy en el curso de ${this.curso}`);
+    }
+}
+
+const alumno=new Alumno("pepe", "guardiola", 90, "alumno", "FullStack")
+
+alumno.saludar();
+alumno.mostrarInformacion();
+
+class Mentor extends Persona{
+    constructor(nombre, apellido, edad, materia){
+        super(nombre, apellido, edad);
+        this.rol="Mentor";
+        this.materia=materia;
+    }
+
+    mostrarInformacion(){
+        console.log(`Hola mi nombre es ${this.name}, mi apellido es ${this.surName}, mi edad es ${this.age}, mi rol es ${this.rol} y dicto el curso de ${this.materia}`);
+    }
+}
+
+const mentor=new Mentor("Juan", "Arce", 45, "JAVA")
