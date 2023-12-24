@@ -40,7 +40,14 @@ class Alumno extends Persona{
 class Sistema{
     
     constructor(){
-        this.almacenamiento=[];
+       /* const lsValue=localStorage.getItem("almacenamiento");
+        if (lsValue !== null) {
+            const array=JSON.parse(lsValue);
+            this.almacenamiento = array;
+        }else{
+            this.almacenamiento=[]
+        } */
+        this.almacenamiento=JSON.parse(localStorage.getItem("almacenamiento")) || [];
     }
 
     existeUsuario(usuario){
@@ -70,13 +77,22 @@ class Sistema{
         }
     };
 
+    mostrarInformacion(object){
+        let str="";
+        for (const key in object) {
+            str=` ${key.toUpperCase()}: ${object[key]} `
+        }
+        return str;
+    }
+
     ListarTodo(){
         if (this.almacenamiento===0) {
             console.log("Aun no existen registros");
         }else{
 
             this.almacenamiento((element, index)=>{
-                console.log(`${index+1}: ${element.mostrarInformacion()}`);
+               // console.log(`${index+1}: ${element.mostrarInformacion()}`);
+               console.log(`${index+1}: ${this.mostrarInformacion(element)}`);
             });
         }
     };
@@ -85,7 +101,7 @@ class Sistema{
         const mentores=this.almacenamiento.filter((element)=>element.rol==="Mentor");
         if (mentores.length>0) {
             mentores.forEach((element, index)=>{
-                console.log(`${index+1}: ${element.mostrarInformacion()}`);
+                console.log(`${index+1}: ${this.mostrarInformacion(element)}`);
             });
         }else{
             console.log("Aun no hay registros de MENTORES");
@@ -96,7 +112,7 @@ class Sistema{
         const alumnos=this.almacenamiento.filter((element)=>element.rol==="Alumno");
         if (alumnos.length>0) {
             alumnos.forEach((element, index)=>{
-                console.log(`${index+1}: ${element.mostrarInformacion()}`);
+                console.log(`${index+1}: ${this.mostrarInformacion(element)}`);
             });
         }else{
             console.log("Aun no hay registros de ALUMNOS");
@@ -128,8 +144,25 @@ switch (opcion) {
     case 3:
         system.ListarTodo();
         break;
+    case 4:
+        system.ListarMentor();
+        break;
+    case 5:
+        system.ListarAlumnos();
+        break;
     default:
         console.error(`OPCION INGRESADA INVALIDA: INGRESO --> ${opcion}`);
         break;
 }
  }while (confirm("¿Desea continuar operando?"));
+
+ console.log("###Almacenamiento -->",system.almacenamiento);
+
+ localStorage.setItem("almacenamiento",JSON.stringify(system.almacenamiento));
+
+ /**
+  * PASOS:
+  * 1-COMPROBAR SI EXISTE UN LS ALMACENADO --> localStorage.getItem(alamacenamiento); string / null
+  * 1-a-si es string necesito convertirlo de nuevo a un array --> JSON.parse[resultado localStorage];
+  * 1-b-si es null necesitamos crear localStorage --> localStorage.setItem("almacenamiento" , JSON.stringfy([]));
+  */
