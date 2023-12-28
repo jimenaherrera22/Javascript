@@ -37,8 +37,8 @@ a=27
 b=13
 
 funcionsuma(a,b);
-//esta es una funcion que no retona nada
-function saludar(nobre,apellido){
+//esta es una funcion que no retorna nada
+function saludar(nombre,apellido){
     console.log("Hola, mucho gusto "+nombre+" "+apellido+",¿como estas?");
 }
 saludar("Alan", "Chibilisco");
